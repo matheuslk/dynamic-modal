@@ -1,0 +1,7 @@
+.container {
+  &__actions {
+    display: flex;
+    column-gap: 12px;
+    justify-content: center;
+  }
+}
