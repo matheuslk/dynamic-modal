@@ -1,6 +1,15 @@
 <div class="modal">
   <div class="modal__header">
-    {{ title }}
+    <div class="modal__title">
+      {{ title }}
+    </div>
+    <div (click)="handleClose()" class="modal__icon">
+      <img
+        class="icon"
+        src="../../../assets/images/icons/close.svg"
+        alt="Close icon"
+      />
+    </div>
   </div>
   <div class="modal__content">
     <p>Content</p>
@@ -9,7 +18,10 @@
   </div>
   <div class="modal__footer">
     <div class="modal__actions">
-      <button (click)="onConfirm.emit()">Confirmar</button>
+      <button class="btn" (click)="handleClose()">Cancelar</button>
+      <button class="btn btn-primary" (click)="onConfirm.emit()">
+        Confirmar
+      </button>
     </div>
   </div>
 </div>

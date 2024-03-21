@@ -26,7 +26,6 @@ export class ModalService {
         takeUntilDestroyed()
       )
       .subscribe(() => {
-        console.log('ROUTER EVENT');
         this.destroy();
       });
   }

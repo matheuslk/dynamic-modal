@@ -1,0 +1,31 @@
+@import './colors.scss';
+
+$button-color-primary-bg: $color-primary;
+$button-color-neutral-border: $color-neutral;
+
+.btn {
+  background-color: $color-white;
+  color: $color-black;
+  font-size: 14px;
+  padding: 4px 15px;
+  border-radius: 6px;
+  height: 32px;
+  outline: none;
+  border: 1px solid transparent;
+  border-color: $button-color-neutral-border;
+  cursor: pointer;
+}
+.btn:hover {
+  color: $color-link;
+  border-color: $color-link;
+}
+
+.btn-primary {
+  background-color: $button-color-primary-bg;
+  color: $color-white;
+  border: none;
+}
+.btn-primary:hover {
+  color: $color-white;
+  opacity: 0.7;
+}

@@ -2,7 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { Subject, filter, of, switchMap, take, tap } from 'rxjs';
+import {
+  Subject,
+  delay,
+  exhaustMap,
+  filter,
+  interval,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -18,13 +28,18 @@ export class HomeComponent implements OnInit {
 
   openModal$: Subject<void> = new Subject();
   private modalListener$ = this.openModal$.pipe(
-    switchMap(() =>
-      this.modalService.create().onConfirm.asObservable().pipe(take(1))
+    exhaustMap(() =>
+      this.modalService
+        .create()
+        .onConfirm.asObservable()
+        .pipe(
+          take(1),
+          filter((confirm) => confirm !== null),
+          tap(() => {
+            this.modalService.destroy();
+          })
+        )
     ),
-    filter((confirm) => confirm !== null),
-    tap(() => {
-      this.modalService.destroy();
-    }),
     takeUntilDestroyed()
   );
 

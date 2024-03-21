@@ -22,4 +22,8 @@ export abstract class BaseModal implements IModalData, OnDestroy {
   ngOnDestroy(): void {
     this.onConfirm.emit(null);
   }
+
+  handleClose() {
+    this.modalService.destroy();
+  }
 }

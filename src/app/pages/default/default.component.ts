@@ -5,9 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-default',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './default.component.html',
-  styleUrls: ['./default.component.scss']
+  template: `<div class="container">
+    <p>default works!</p>
+  </div>`,
 })
-export class DefaultComponent {
-
-}
+export class DefaultComponent {}
