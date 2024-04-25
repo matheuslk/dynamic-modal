@@ -2,17 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import {
-  Subject,
-  delay,
-  exhaustMap,
-  filter,
-  interval,
-  of,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
+import { Subject, exhaustMap, filter, take, tap } from 'rxjs';
+import { TextModalContentComponent } from 'src/app/components/custom-modal-contents/text-modal-content/text-modal-content.component';
+
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -30,7 +22,13 @@ export class HomeComponent implements OnInit {
   private modalListener$ = this.openModal$.pipe(
     exhaustMap(() =>
       this.modalService
-        .create()
+        .create({
+          title: 'Modal customizada',
+          contentType: TextModalContentComponent,
+          data: {
+            test: 'test',
+          },
+        })
         .onConfirm.asObservable()
         .pipe(
           take(1),
@@ -44,6 +42,10 @@ export class HomeComponent implements OnInit {
   );
 
   ngOnInit() {
+    this.setListeners();
+  }
+
+  private setListeners() {
     this.modalListener$.subscribe();
   }
 

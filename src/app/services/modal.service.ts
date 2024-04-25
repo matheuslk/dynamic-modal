@@ -3,79 +3,84 @@ import {
   ComponentRef,
   EmbeddedViewRef,
   Injectable,
-  Type,
+  Injector,
   createComponent,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationStart, Router } from '@angular/router';
-import { filter, skip } from 'rxjs';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
-import { IModalData } from '../data/interfaces/modal-data.interface';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { filter, skip, tap } from 'rxjs';
+import { CustomModalComponent } from '../components/custom-modal/custom-modal.component';
 import { ModalOverlayComponent } from '../components/modal-overlay/modal-overlay.component';
+import { IModalData } from '../data/interfaces/modal.interface';
+import { MODAL_DATA_TOKEN, MODAL_REF_TOKEN } from '../tokens/modal.token';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
   constructor() {
-    this.router.events
-      .pipe(
-        skip(1),
-        filter((event) => event instanceof NavigationStart),
-        takeUntilDestroyed()
-      )
-      .subscribe(() => {
+    this.router.events.pipe(
+      skip(1),
+      filter((event) => event instanceof NavigationEnd),
+      tap(() => {
         this.destroy();
-      });
+      }),
+      takeUntilDestroyed()
+    );
   }
 
   private appRef = inject(ApplicationRef);
   private router = inject(Router);
-  private componentRef: ComponentRef<ModalComponent> | null = null;
-  private overlayComponentRef: ComponentRef<ModalOverlayComponent> | null =
+  private modalOverlayComponentRef: ComponentRef<ModalOverlayComponent> | null =
     null;
 
-  create(data?: IModalData) {
-    this.componentRef = createComponent(ModalComponent, {
+  create(data: IModalData): CustomModalComponent {
+    const modalComponentRef = createComponent(CustomModalComponent, {
       environmentInjector: this.appRef.injector,
+      elementInjector: Injector.create({
+        providers: [
+          {
+            provide: MODAL_DATA_TOKEN,
+            useValue: data.data,
+          },
+        ],
+      }),
     });
-    this.overlayComponentRef = createComponent(ModalOverlayComponent, {
+    const modalContentRef = createComponent(data.contentType, {
       environmentInjector: this.appRef.injector,
+      elementInjector: modalComponentRef.injector,
     });
 
-    this.appRef.attachView(this.componentRef.hostView);
-    this.appRef.attachView(this.overlayComponentRef.hostView);
+    modalComponentRef.instance.title = data.title;
+    modalComponentRef.instance.contentRef = modalContentRef;
 
-    if (data) {
-      this.componentRef.instance.title = data.title;
-    }
+    this.modalOverlayComponentRef = createComponent(ModalOverlayComponent, {
+      environmentInjector: this.appRef.injector,
+      elementInjector: Injector.create({
+        providers: [
+          {
+            provide: MODAL_REF_TOKEN,
+            useValue: modalComponentRef,
+          },
+        ],
+      }),
+    });
 
-    // append to body
-    [this.componentRef.hostView, this.overlayComponentRef.hostView].forEach(
-      (viewRef) => {
-        document.body.append((<EmbeddedViewRef<any>>viewRef).rootNodes[0]);
-      }
+    this.appRef.attachView(this.modalOverlayComponentRef.hostView);
+    document.body.append(
+      (<EmbeddedViewRef<any>>this.modalOverlayComponentRef.hostView)
+        .rootNodes[0]
     );
 
-    return this.componentRef.instance;
+    return modalComponentRef.instance;
   }
 
   destroy() {
-    this.destroyRef(this.componentRef);
-    this.destroyRef(this.overlayComponentRef);
-
-    this.componentRef = null;
-    this.overlayComponentRef = null;
-  }
-
-  private destroyRef(
-    ref: ComponentRef<ModalComponent | ModalOverlayComponent> | null
-  ) {
-    if (!ref) {
+    if (!this.modalOverlayComponentRef) {
       return;
     }
-    this.appRef.detachView(ref.hostView);
-    ref.destroy();
+    this.modalOverlayComponentRef.destroy();
+    this.modalOverlayComponentRef = null;
   }
 }

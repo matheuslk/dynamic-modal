@@ -12,16 +12,9 @@
     </div>
   </div>
   <div class="modal__content">
-    <p>Content</p>
-    <p>Content</p>
-    <p>Content</p>
+    <ng-template #contentWrapper [appDynamicWrapper]></ng-template>
   </div>
-  <div class="modal__footer">
-    <div class="modal__actions">
-      <button class="btn" (click)="handleClose()">Cancelar</button>
-      <button class="btn btn-primary" (click)="onConfirm.emit()">
-        Confirmar
-      </button>
-    </div>
+  <div *ngIf="footerTemplate" class="modal__footer">
+    <ng-template #footerWrapper [appDynamicWrapper]></ng-template>
   </div>
 </div>

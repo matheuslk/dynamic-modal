@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
+import { DynamicWrapperDirective } from 'src/app/directives/dynamic-wrapper.directive';
 import { ModalService } from 'src/app/services/modal.service';
+import { MODAL_REF_TOKEN } from 'src/app/tokens/modal.token';
 
 @Component({
   selector: 'app-modal-overlay',
   standalone: true,
-  imports: [CommonModule],
-  template: `<div class="overlay" (click)="handleClick()"></div>`,
+  imports: [CommonModule, DynamicWrapperDirective],
+  template: `<div class="overlay" (click)="handleClick()">
+    <ng-template #modalWrapper [appDynamicWrapper]></ng-template>
+  </div>`,
   styles: [
     `
       .overlay {
@@ -15,15 +19,26 @@ import { ModalService } from 'src/app/services/modal.service';
         position: fixed;
         top: 0;
         left: 0;
-        background: #000;
-        opacity: 0.6;
+        background-color: #00000073;
         z-index: 999;
       }
     `,
   ],
 })
 export class ModalOverlayComponent {
-  modalService = inject(ModalService);
+  private modalRef = inject(MODAL_REF_TOKEN);
+  private modalService = inject(ModalService);
+
+  @ViewChild('modalWrapper', { read: DynamicWrapperDirective })
+  private modalWrapper!: DynamicWrapperDirective;
+
+  ngAfterViewInit() {
+    this.createModal();
+  }
+
+  private createModal() {
+    this.modalWrapper.insertComponent(this.modalRef);
+  }
 
   handleClick() {
     this.modalService.destroy();
