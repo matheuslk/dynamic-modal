@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter, skip, tap } from 'rxjs';
 import { CustomModalComponent } from '../components/custom-modal/custom-modal.component';
 import { ModalOverlayComponent } from '../components/modal-overlay/modal-overlay.component';
