@@ -1,0 +1,33 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins/borders';
+
+$button-color-primary-bg: variables.$color-primary;
+
+.btn {
+  font-size: variables.$font-sm;
+  padding: variables.$spacing-xss variables.$spacing-md;
+  border-radius: 6px;
+  height: 32px;
+  outline: none;
+  cursor: pointer;
+  @include borders.neutral;
+}
+
+.btn--default {
+  background-color: variables.$color-white;
+  color: variables.$color-black;
+  &:hover {
+    color: variables.$color-link;
+    @include borders.primary;
+  }
+}
+
+.btn--primary {
+  background-color: $button-color-primary-bg;
+  color: variables.$color-white;
+  border: none;
+  &:hover {
+    color: variables.$color-white;
+    opacity: 0.7;
+  }
+}

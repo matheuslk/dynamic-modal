@@ -1,8 +1,8 @@
 <div class="container">
   <div class="container__actions">
-    <button class="btn btn-primary" (click)="openModal$.next()">
-      Open Modal
-    </button>
-    <button class="btn" (click)="navigateToPage()">Navigate to Page</button>
+    <app-button type="primary" (click)="openModal$.next()">
+      Modal de texto
+    </app-button>
+    <app-button (click)="navigateToPage()"> Trocar de página </app-button>
   </div>
 </div>

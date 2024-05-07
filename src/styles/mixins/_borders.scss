@@ -1,0 +1,9 @@
+@use '../variables/colors';
+
+@mixin neutral {
+  border: 1px solid colors.$color-neutral;
+}
+
+@mixin primary {
+  border: 1px solid colors.$color-primary;
+}

@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ITextModalProps } from 'src/app/data/interfaces/modal.interface';
 import { ModalFooterDirective } from 'src/app/directives/modal-footer.directive';
-import { ActionModalFooterComponent } from '../../custom-modal-footers/action-modal-footer/action-modal-footer.component';
+import { MODAL_DATA_TOKEN } from 'src/app/tokens/modal.token';
+import { ActionModalFooterComponent } from '../../modal-footers/action-modal-footer/action-modal-footer.component';
 
 @Component({
   selector: 'app-text-modal-content',
@@ -11,6 +13,8 @@ import { ActionModalFooterComponent } from '../../custom-modal-footers/action-mo
   styleUrls: ['./text-modal-content.component.scss'],
 })
 export class TextModalContentComponent {
+  modalData: ITextModalProps = inject(MODAL_DATA_TOKEN);
+
   ngAfterViewInit() {
     console.log('TextModalContentComponent - ngAfterViewInit');
   }

@@ -5,3 +5,8 @@ export interface IModalData {
   contentType: Type<any>;
   data?: any;
 }
+
+export interface ITextModalProps {
+  title: string;
+  subtitle: string;
+}
