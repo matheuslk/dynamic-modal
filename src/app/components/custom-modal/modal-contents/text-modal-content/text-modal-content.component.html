@@ -2,4 +2,8 @@
   <p class="content__title">{{ modalData.title }}</p>
   <p class="content__subtitle">{{ modalData.subtitle }}</p>
 </div>
-<app-action-modal-footer #footer *appModalFooter></app-action-modal-footer>
+<app-action-modal-footer
+  #footer
+  *appModalFooter
+  (onConfirm)="handleConfirm()"
+></app-action-modal-footer>

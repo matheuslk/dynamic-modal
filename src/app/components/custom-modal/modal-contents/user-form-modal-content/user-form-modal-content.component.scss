@@ -1,0 +1,16 @@
+.content {
+  &__title {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.email-input {
+  grid-column: 1 / span 2;
+}

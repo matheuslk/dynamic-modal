@@ -1,8 +1,17 @@
 <div class="container">
   <div class="container__actions">
-    <app-button type="primary" (click)="openModal$.next()">
+    <app-button
+      type="primary"
+      (click)="openModal$.next(MODAL_TYPE_ENUM.TEXT_MODAL)"
+    >
       Modal de texto
     </app-button>
-    <app-button (click)="navigateToPage()"> Trocar de página </app-button>
+    <app-button
+      type="primary"
+      (click)="openModal$.next(MODAL_TYPE_ENUM.USER_FORM_MODAL)"
+    >
+      Modal com formulário
+    </app-button>
+    <app-button (click)="navigateToPage()">Trocar de página</app-button>
   </div>
 </div>

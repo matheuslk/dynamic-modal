@@ -1,0 +1,7 @@
+<input
+  class="input"
+  type="text"
+  [ngModel]="value$ | async"
+  [placeholder]="placeholder"
+  (ngModelChange)="setValue($event)"
+/>

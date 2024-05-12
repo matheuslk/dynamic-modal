@@ -4,7 +4,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Subject, exhaustMap, filter, take, tap } from 'rxjs';
 import { ButtonComponent } from 'src/app/components/button/button.component';
-import { MODAL_DATA } from 'src/app/data/const/modal-data.const';
+import { MODAL_DATA } from 'src/app/data/consts/modal-data.const';
+import { ModalTypeEnum } from 'src/app/data/enums/modal-type.enum';
+import { ModalType } from 'src/app/data/types/modal-type.type';
 
 import { ModalService } from 'src/app/services/modal.service';
 
@@ -16,14 +18,16 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  MODAL_TYPE_ENUM = ModalTypeEnum;
+
   modalService = inject(ModalService);
   router = inject(Router);
 
-  openModal$: Subject<void> = new Subject();
+  openModal$: Subject<ModalType> = new Subject();
   private modalListener$ = this.openModal$.pipe(
-    exhaustMap(() =>
+    exhaustMap((modalType) =>
       this.modalService
-        .create(MODAL_DATA['TEXT_MODAL'])
+        .create(MODAL_DATA[modalType])
         .onConfirm.asObservable()
         .pipe(
           take(1),

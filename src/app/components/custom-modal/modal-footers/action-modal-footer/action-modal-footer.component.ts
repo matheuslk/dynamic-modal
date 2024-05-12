@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { CustomModalComponent } from '../../custom-modal.component';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { ButtonComponent } from 'src/app/components/button/button.component';
+import { CustomModalComponent } from '../../custom-modal.component';
 
 @Component({
   selector: 'app-action-modal-footer',
@@ -13,6 +13,8 @@ import { ButtonComponent } from 'src/app/components/button/button.component';
 export class ActionModalFooterComponent {
   private modal = inject(CustomModalComponent);
 
+  @Output() onConfirm = new EventEmitter<void>();
+
   ngAfterViewInit() {
     console.log('ActionModalFooterComponent - ngAfterViewInit');
   }
@@ -22,10 +24,6 @@ export class ActionModalFooterComponent {
   }
 
   handleClose() {
-    this.modal.onConfirm.emit(null);
-  }
-
-  handleConfirm() {
-    this.modal.onConfirm.emit();
+    this.modal.handleClose();
   }
 }

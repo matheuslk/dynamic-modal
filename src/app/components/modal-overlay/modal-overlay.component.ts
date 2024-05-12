@@ -41,6 +41,6 @@ export class ModalOverlayComponent {
   }
 
   handleClick() {
-    this.modalService.destroy();
+    //this.modalService.destroy();
   }
 }

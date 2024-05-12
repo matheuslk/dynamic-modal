@@ -22,4 +22,8 @@ export class TextModalContentComponent {
   ngOnDestroy() {
     console.log('TextModalContentComponent - ngOnDestroy');
   }
+
+  handleConfirm() {
+    console.log('TextModalContentComponent - handleConfirm');
+  }
 }

@@ -1,0 +1,22 @@
+@use '../../../styles/variables';
+@use '../../../styles/mixins/borders';
+
+$button-color-primary-bg: variables.$color-primary;
+
+.input {
+  width: 100%;
+  font-size: variables.$font-sm;
+  padding: variables.$spacing-xss;
+  border-radius: 6px;
+  @include borders.neutral;
+  &:hover,
+  &:focus {
+    @include borders.primary;
+  }
+  &::placeholder {
+    opacity: 0.6;
+  }
+  &:focus-visible {
+    outline: 0;
+  }
+}
