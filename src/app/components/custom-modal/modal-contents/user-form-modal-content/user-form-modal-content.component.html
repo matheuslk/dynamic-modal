@@ -1,14 +1,14 @@
 <div class="content">
   <p class="content__title">{{ modalData.title }}</p>
   <form [formGroup]="form" class="form">
-    <div class="form__input name-input">
-      <app-input formControlName="name"></app-input>
+    <div class="form__input">
+      <app-input placeholder="Nome" formControlName="name"></app-input>
     </div>
-    <div class="form__input surname-input">
-      <app-input formControlName="surname"></app-input>
+    <div class="form__input">
+      <app-input placeholder="Sobrenome" formControlName="surname"></app-input>
     </div>
     <div class="form__input email-input">
-      <app-input formControlName="email"></app-input>
+      <app-input placeholder="Email" formControlName="email"></app-input>
     </div>
   </form>
 </div>

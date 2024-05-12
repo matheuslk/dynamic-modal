@@ -4,6 +4,7 @@ import { ITextModalProps } from 'src/app/data/interfaces/modal.interface';
 import { ModalFooterDirective } from 'src/app/directives/modal-footer.directive';
 import { MODAL_DATA_TOKEN } from 'src/app/tokens/modal.token';
 import { ActionModalFooterComponent } from '../../modal-footers/action-modal-footer/action-modal-footer.component';
+import { CustomModalComponent } from '../../custom-modal.component';
 
 @Component({
   selector: 'app-text-modal-content',
@@ -14,6 +15,7 @@ import { ActionModalFooterComponent } from '../../modal-footers/action-modal-foo
 })
 export class TextModalContentComponent {
   modalData: ITextModalProps = inject(MODAL_DATA_TOKEN);
+  private modal = inject(CustomModalComponent);
 
   ngAfterViewInit() {
     console.log('TextModalContentComponent - ngAfterViewInit');
@@ -24,6 +26,6 @@ export class TextModalContentComponent {
   }
 
   handleConfirm() {
-    console.log('TextModalContentComponent - handleConfirm');
+    this.modal.onConfirm.emit();
   }
 }

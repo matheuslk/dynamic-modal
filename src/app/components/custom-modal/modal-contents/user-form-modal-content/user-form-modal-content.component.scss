@@ -1,14 +1,17 @@
+@use '../../../../../styles/utils/variables/font';
+@use '../../../../../styles/utils/variables/spacing';
+
 .content {
   &__title {
-    font-size: 14px;
-    margin-bottom: 16px;
+    font-size: font.$font-sm;
+    margin-bottom: spacing.$spacing-md;
   }
 }
 
 .form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: spacing.$spacing-md;
 }
 
 .email-input {

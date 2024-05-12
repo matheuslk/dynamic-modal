@@ -6,6 +6,7 @@ import { IUserFormModalProps } from 'src/app/data/interfaces/modal.interface';
 import { ModalFooterDirective } from 'src/app/directives/modal-footer.directive';
 import { MODAL_DATA_TOKEN } from 'src/app/tokens/modal.token';
 import { ActionModalFooterComponent } from '../../modal-footers/action-modal-footer/action-modal-footer.component';
+import { CustomModalComponent } from '../../custom-modal.component';
 
 @Component({
   selector: 'app-user-form-modal-content',
@@ -22,6 +23,7 @@ import { ActionModalFooterComponent } from '../../modal-footers/action-modal-foo
 })
 export class UserFormModalContentComponent {
   modalData: IUserFormModalProps = inject(MODAL_DATA_TOKEN);
+  private modal = inject(CustomModalComponent);
   private formBuilder = inject(FormBuilder);
 
   form = this.formBuilder.group({
@@ -39,9 +41,6 @@ export class UserFormModalContentComponent {
   }
 
   handleConfirm() {
-    console.log(
-      'UserFormModalContentComponent - handleConfirm',
-      this.form.value
-    );
+    this.modal.onConfirm.emit(this.form.value);
   }
 }

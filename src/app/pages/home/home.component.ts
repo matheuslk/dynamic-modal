@@ -30,12 +30,11 @@ export class HomeComponent implements OnInit {
         .create(MODAL_DATA[modalType])
         .onConfirm.asObservable()
         .pipe(
-          take(1),
-          filter((confirm) => confirm !== null),
-          tap(() => {
-            console.log('TEXT MODAL CONFIRM');
-            this.modalService.destroy();
-          })
+          tap((value) => {
+            console.log('HomeComponent - Modal Confirm', value);
+          }),
+          filter((confirm) => confirm === null),
+          take(1)
         )
     ),
     takeUntilDestroyed()

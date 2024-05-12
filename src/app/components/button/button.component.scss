@@ -1,12 +1,12 @@
-@use '../../../styles/variables';
-@use '../../../styles/mixins/borders';
+@use '../../../styles/utils/variables';
+@use '../../../styles/utils/mixins/borders';
 
 $button-color-primary-bg: variables.$color-primary;
 
 .btn {
   font-size: variables.$font-sm;
   padding: variables.$spacing-xss variables.$spacing-md;
-  border-radius: 6px;
+  border-radius: variables.$radius-md;
   height: 32px;
   outline: none;
   cursor: pointer;

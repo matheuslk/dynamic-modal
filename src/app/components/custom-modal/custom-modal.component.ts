@@ -54,6 +54,10 @@ export class CustomModalComponent implements AfterViewInit, OnDestroy {
     this.footerWrapper.insertTemplate(this.footerTemplate);
   }
 
+  handleClick(event: Event) {
+    event.stopPropagation();
+  }
+
   handleClose() {
     this.modalService.destroy();
   }

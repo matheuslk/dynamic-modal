@@ -1,5 +1,5 @@
-@use '../../../styles/variables';
-@use '../../../styles/mixins/borders';
+@use '../../../styles/utils/variables';
+@use '../../../styles/utils/mixins/borders';
 
 $button-color-primary-bg: variables.$color-primary;
 
@@ -7,7 +7,8 @@ $button-color-primary-bg: variables.$color-primary;
   width: 100%;
   font-size: variables.$font-sm;
   padding: variables.$spacing-xss;
-  border-radius: 6px;
+  border-radius: variables.$radius-md;
+  height: 28px;
   @include borders.neutral;
   &:hover,
   &:focus {

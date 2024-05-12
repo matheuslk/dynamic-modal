@@ -1,3 +1,7 @@
+@use '../../../styles/utils/variables';
+
+$divider-border: 1px solid rgba(0, 0, 0, 0.06);
+
 .modal {
   width: 520px;
   position: absolute;
@@ -6,28 +10,28 @@
   right: 0;
   margin: 0 auto;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: variables.$radius-lg;
   box-shadow: inset;
   z-index: 1000;
   &__header {
     display: flex;
     justify-content: space-between;
-    padding: 16px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: variables.$spacing-md variables.$spacing-lg;
+    border-bottom: $divider-border;
   }
   &__title {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: variables.$font-md;
+    font-weight: variables.$font-weight-bold;
   }
   &__icon {
     cursor: pointer;
   }
   &__content {
-    font-size: 14px;
-    padding: 24px;
+    font-size: variables.$font-sm;
+    padding: variables.$spacing-lg;
   }
   &__footer {
-    padding: 10px 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    padding: variables.$spacing-sm variables.$spacing-md;
+    border-top: $divider-border;
   }
 }
