@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ButtonComponent } from 'src/app/components/button/button.component';
 import { CustomModalComponent } from '../../custom-modal.component';
 
@@ -14,6 +14,7 @@ export class ActionModalFooterComponent {
   private modal = inject(CustomModalComponent);
 
   @Output() onConfirm = new EventEmitter<void>();
+  @Input() isPrimaryButtonDisabled = false;
 
   ngAfterViewInit() {
     console.log('ActionModalFooterComponent - ngAfterViewInit');

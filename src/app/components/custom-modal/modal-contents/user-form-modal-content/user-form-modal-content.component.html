@@ -15,5 +15,6 @@
 <app-action-modal-footer
   #footer
   *appModalFooter
+  [isPrimaryButtonDisabled]="form.invalid"
   (onConfirm)="handleConfirm()"
 ></app-action-modal-footer>

@@ -1,5 +1,5 @@
 @use '../../../styles/utils/variables';
-@use '../../../styles/utils/mixins/borders';
+@use '../../../styles/utils/mixins/border';
 
 $button-color-primary-bg: variables.$color-primary;
 
@@ -10,15 +10,15 @@ $button-color-primary-bg: variables.$color-primary;
   height: 32px;
   outline: none;
   cursor: pointer;
-  @include borders.neutral;
 }
 
 .btn--default {
   background-color: variables.$color-white;
   color: variables.$color-black;
+  @include border.neutral;
   &:hover {
     color: variables.$color-link;
-    @include borders.primary;
+    @include border.primary;
   }
 }
 
@@ -29,5 +29,19 @@ $button-color-primary-bg: variables.$color-primary;
   &:hover {
     color: variables.$color-white;
     opacity: 0.7;
+  }
+}
+
+@mixin btn--disabled {
+  background-color: variables.$color-disabled;
+  color: variables.$color-neutral;
+  @include border.neutral;
+}
+.btn--disabled {
+  @include btn--disabled();
+  &:hover {
+    @include btn--disabled();
+    cursor: auto;
+    opacity: 1;
   }
 }

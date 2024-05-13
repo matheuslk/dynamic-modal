@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from 'src/app/components/input/input.component';
 import { IUserFormModalProps } from 'src/app/data/interfaces/modal.interface';
 import { ModalFooterDirective } from 'src/app/directives/modal-footer.directive';
 import { MODAL_DATA_TOKEN } from 'src/app/tokens/modal.token';
-import { ActionModalFooterComponent } from '../../modal-footers/action-modal-footer/action-modal-footer.component';
 import { CustomModalComponent } from '../../custom-modal.component';
+import { ActionModalFooterComponent } from '../../modal-footers/action-modal-footer/action-modal-footer.component';
 
 @Component({
   selector: 'app-user-form-modal-content',
@@ -27,9 +27,12 @@ export class UserFormModalContentComponent {
   private formBuilder = inject(FormBuilder);
 
   form = this.formBuilder.group({
-    name: this.formBuilder.control(null),
-    surname: this.formBuilder.control(null),
-    email: this.formBuilder.control(null),
+    name: this.formBuilder.control(null, Validators.required),
+    surname: this.formBuilder.control(null, Validators.required),
+    email: this.formBuilder.control(null, [
+      Validators.required,
+      Validators.email,
+    ]),
   });
 
   ngAfterViewInit() {

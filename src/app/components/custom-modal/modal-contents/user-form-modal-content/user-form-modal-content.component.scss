@@ -5,6 +5,7 @@
   &__title {
     font-size: font.$font-sm;
     margin-bottom: spacing.$spacing-md;
+    word-wrap: break-word;
   }
 }
 

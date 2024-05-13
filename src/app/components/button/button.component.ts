@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() type: 'primary' | 'default' = 'default';
+  @Input() disabled = false;
 }
