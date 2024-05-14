@@ -36,6 +36,7 @@ export class ModalOverlayComponent {
     this.createModal();
   }
 
+  // Método responsável por inserir o "CustomModalComponent", com o auxílio da diretiva "DynamicWrapperDirective".
   private createModal() {
     this.modalWrapper.insertComponent(this.modalRef);
   }

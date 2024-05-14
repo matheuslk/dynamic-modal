@@ -20,6 +20,7 @@ import { MODAL_DATA_TOKEN, MODAL_REF_TOKEN } from '../tokens/modal.token';
 })
 export class ModalService {
   constructor() {
+    // Sempre que ocorre uma troca de rota, qualquer modal ativa é destruída. Para testar esse comportamento, navegue para a rota "default", retorne à rota "home", abra uma modal e navegue novamente para a rota "default" pelo navegador.
     this.router.events.pipe(
       skip(1),
       filter((event) => event instanceof NavigationEnd),
@@ -36,6 +37,7 @@ export class ModalService {
     null;
 
   create(data: IModalData): CustomModalComponent {
+    // Criação do componente "CustomModalComponent" juntamente com a injeção do "MODAL_DATA_TOKEN" que conterá qualquer dado que o usuário deseje transmitir à modal.
     const modalComponentRef = createComponent(CustomModalComponent, {
       environmentInjector: this.appRef.injector,
       elementInjector: Injector.create({
@@ -47,14 +49,19 @@ export class ModalService {
         ],
       }),
     });
+
+    // Criação do componente de conteúdo da modal. É importante destacar que o injetor da própria modal é passado para a propriedade "elementInjector" do componente. Dessa forma, todas as dependências acessíveis ao componente "CustomModalComponent" também ficam disponíveis para o componente de conteúdo, permitindo o acesso ao "MODAL_DATA_TOKEN".
     const modalContentRef = createComponent(data.contentType, {
       environmentInjector: this.appRef.injector,
       elementInjector: modalComponentRef.injector,
     });
 
+    // Definição do título da modal.
     modalComponentRef.instance.title = data.title;
+    // Definição do componente de conteúdo da modal que posteriormente será adicionado ao template.
     modalComponentRef.instance.contentRef = modalContentRef;
 
+    // Criação do componente "ModalOverlayComponent" e injeção do "MODAL_REF_TOKEN" que armazenará a referência do componente "CustomModalComponent" que acabamos de criar, permitindo que a modal seja renderizada dentro do componente de overlay.
     this.modalOverlayComponentRef = createComponent(ModalOverlayComponent, {
       environmentInjector: this.appRef.injector,
       elementInjector: Injector.create({
@@ -67,6 +74,7 @@ export class ModalService {
       }),
     });
 
+    // "ModalOverlayComponent" é inserido na raiz do elemento body HTML.
     this.appRef.attachView(this.modalOverlayComponentRef.hostView);
     document.body.append(
       (<EmbeddedViewRef<any>>this.modalOverlayComponentRef.hostView)
@@ -76,6 +84,7 @@ export class ModalService {
     return modalComponentRef.instance;
   }
 
+  // Destrói o atual "ModalOverlayComponent" que posteriormente irá destruir o "CustomModalComponent" e seus componentes filhos.
   destroy() {
     if (!this.modalOverlayComponentRef) {
       return;

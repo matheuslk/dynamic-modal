@@ -29,7 +29,6 @@ export class InputComponent implements ControlValueAccessor {
   private onChange!: (value: string) => void;
 
   writeValue(obj: any): void {
-    console.log('InputComponent - writeValue', obj);
     this.value$.next(obj);
   }
   registerOnChange(fn: any): void {

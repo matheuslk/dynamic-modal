@@ -28,7 +28,7 @@ export class CustomModalComponent implements AfterViewInit, OnDestroy {
   @Input() contentRef!: ComponentRef<any>;
   @Input() footerTemplate?: TemplateRef<any>;
   /**
-   * emits `null` when modal is closed
+   * Emite `null` quando a modal é fechada
    */
   @Output() onConfirm = new EventEmitter<any>();
 
@@ -43,10 +43,12 @@ export class CustomModalComponent implements AfterViewInit, OnDestroy {
     this.createFooter();
   }
 
+  // Método responsável por inserir o componente de conteúdo previamente criado no ModalService, com o auxílio da diretiva "DynamicWrapperDirective".
   private createContent() {
     this.contentWrapper.insertComponent(this.contentRef);
   }
 
+  // Método responsável por inserir o template relativo ao rodapé, que pode ou não existir no componente de conteúdo e será passado através dele para a modal, com o auxílio da diretiva "ModalFooterDirective".
   private createFooter() {
     if (!this.footerTemplate) {
       return;

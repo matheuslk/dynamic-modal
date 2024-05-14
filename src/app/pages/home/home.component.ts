@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   modalService = inject(ModalService);
   router = inject(Router);
 
+  // Ao solicitar a criação de uma modal por meio do envio do "ModalType", o método "create()" da classe ModalService é acionado para realizar toda a lógica de criação e renderização desse componente.
   openModal$: Subject<ModalType> = new Subject();
   private modalListener$ = this.openModal$.pipe(
     exhaustMap((modalType) =>
